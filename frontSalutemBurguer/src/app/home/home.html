@@ -1,0 +1,107 @@
+<main class="flex flex-col w-full h-screen bg-gray-600">
+    <nav class="flex bg-gray-900 text-white shadow-md sticky top-0 z-10">
+        <div class="container mx-auto px-6 py-4 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <span 
+                    (click)="hadleComponenteVisualizado('')"
+                    class="text-2xl font-bold text-yellow-400 hover:text-yellow-300 transition-colors cursor-pointer">
+                    Salutem<span class="text-white">Burguers</span>
+                </span>
+            </div>
+
+            <div class="flex items-center space-x-8">
+                <button class="relative p-1 text-gray-300 hover:text-white transition-colors group">
+                    <div class="p-1 rounded-full group-hover:bg-gray-700 transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+                        </svg>
+                    </div>
+                    <span
+                        class="absolute -top-1 -right-1 bg-yellow-500 text-black text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center transform group-hover:scale-110 transition-transform">3</span>
+                </button>
+
+                <div
+                    class="flex items-center space-x-3 group cursor-pointer p-1 rounded-full hover:bg-gray-700 transition-colors px-3 py-1">
+                    <div
+                        class="w-9 h-9 rounded-full bg-gray-700 flex items-center justify-center overflow-hidden border-2 border-yellow-400/50 hover:border-yellow-400 transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                            class="w-5 h-5 text-gray-300">
+                            <path fill-rule="evenodd"
+                                d="M7.5 6a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM3.751 20.105a8.25 8.25 0 0116.498 0 .75.75 0 01-.437.695A18.683 18.683 0 0112 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 01-.437-.695z"
+                                clip-rule="evenodd" />
+                        </svg>
+                    </div>
+                    <span class="text-sm font-medium text-gray-300 group-hover:text-white">Olá, Usuário</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                        class="w-4 h-4 text-gray-400 group-hover:text-white transform group-hover:translate-y-0.5 transition-transform">
+                        <path fill-rule="evenodd"
+                            d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
+                            clip-rule="evenodd" />
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+
+    <div class="flex flex-1 overflow-hidden bg-red-600">
+
+        <div class="w-64 bg-white p-5 flex flex-col space-y-3 border-r border-gray-200 overflow-y-auto">
+            <button (click)="hadleComponenteVisualizado('ingredientes')"
+                class="flex justify-between items-center w-full py-3 px-5 bg-white text-gray-700 font-semibold rounded-xl hover:bg-gray-50 hover:shadow-sm transition-all duration-200 shadow-sm hover:translate-x-1 border border-gray-100 cursor-pointer group">
+                <p class="text-gray-700 group-hover:text-gray-900">Cadastrar Ingredientes</p>
+                <ng-icon name="lucideHam" class="text-gray-500 group-hover:text-yellow-500 transition-colors"></ng-icon>
+            </button>
+            <button (click)="hadleComponenteVisualizado('bebidas')"
+                class="flex justify-between items-center w-full py-3 px-5 bg-white text-gray-700 font-semibold rounded-xl hover:bg-gray-50 hover:shadow-sm transition-all duration-200 shadow-sm hover:translate-x-1 border border-gray-100 cursor-pointer group">
+                <p class="text-gray-700 group-hover:text-gray-900">Cadastrar Bebidas</p>
+                <ng-icon name="bootstrapCupStraw"
+                    class="text-gray-500 group-hover:text-blue-500 transition-colors"></ng-icon>
+            </button>
+            <button (click)="hadleComponenteVisualizado('lanche')"
+                class="flex justify-between items-center w-full py-3 px-5 bg-white text-gray-700 font-semibold rounded-xl hover:bg-gray-50 hover:shadow-sm transition-all duration-200 shadow-sm hover:translate-x-1 border border-gray-100 cursor-pointer group">
+                <p class="text-gray-700 group-hover:text-gray-900">Cadastrar Lanche</p>
+                <ng-icon name="lucideHamburger"
+                    class="text-gray-500 group-hover:text-red-500 transition-colors"></ng-icon>
+            </button>
+            <button (click)="hadleComponenteVisualizado('pedido')"
+                class="flex justify-between items-center w-full py-3 px-5 bg-white text-gray-700 font-semibold rounded-xl hover:bg-gray-50 hover:shadow-sm transition-all duration-200 shadow-sm hover:translate-x-1 border border-gray-100 cursor-pointer group">
+                <p class="text-gray-700 group-hover:text-gray-900">Pedir Lanche</p>
+                <ng-icon name="lucideSend" class="text-gray-500 group-hover:text-green-500 transition-colors"></ng-icon>
+            </button>
+
+            <div class="flex-1"></div>
+
+            <button
+                class="mt-auto flex justify-between items-center w-full py-3 px-5 bg-gray-100 text-gray-600 font-semibold rounded-xl hover:bg-gray-200 transition-all duration-200 cursor-pointer group border border-gray-200">
+                <p>Sair</p>
+                <ng-icon name="lucideLogOut" class="text-gray-500 group-hover:text-red-500 transition-colors"></ng-icon>
+            </button>
+        </div>
+
+        <!-- Componentes -->
+        <div class="flex-1 p-8 overflow-y-auto bg-white">
+            <div class="max-w-6xl mx-auto">
+                
+                <div *ngIf="componenteVisualizado == 'ingredientes'" class="animate-fadeIn">
+                    <app-ingredientes></app-ingredientes>
+                </div>
+
+                <div *ngIf="componenteVisualizado == 'bebidas'" class="animate-fadeIn">
+                    <app-bebidas></app-bebidas>
+                </div>
+
+                <div *ngIf="componenteVisualizado == 'lanche'" class="animate-fadeIn">
+                    <app-lanche></app-lanche>
+                </div>
+
+                <div *ngIf="componenteVisualizado == 'pedido'" class="animate-fadeIn">
+                    <app-pedido></app-pedido>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</main>

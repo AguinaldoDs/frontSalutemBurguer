@@ -1,0 +1,262 @@
+<div class="flex flex-col w-full h-full gap-6 p-4">
+  <!-- Form Card -->
+  <div class="bg-white rounded-lg shadow-md p-6 w-full">
+    <div class="flex justify-between items-center">
+      <!-- Header -->
+      <div>
+        <h1 class="text-xl font-semibold text-gray-800">Gerenciamento de Pedidos</h1>
+        <p class="text-gray-500 text-sm">Registre e acompanhe os pedidos dos clientes</p>
+      </div>
+
+      <!-- Botão Criar Pedido -->
+      <button type="button" (click)="handleVerLista()"
+        class="flex items-center gap-2 px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-md transition-colors shadow">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" />
+        </svg>
+        Criar Pedido
+      </button>
+    </div>
+
+    <!-- Formulário de Pedido -->
+    <form [formGroup]="pedidoForm" (ngSubmit)="savePedido()" *ngIf="verLista" class="mt-8 space-y-6">
+      <!-- Informações do Cliente -->
+      <div formGroupName="informacoesCliente" class="space-y-4 p-6 bg-gray-50 rounded-lg">
+        <h2 class="text-lg font-semibold text-gray-800">Informações do Cliente</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div class="space-y-2">
+            <label class="block text-sm font-medium text-gray-700">Nome Completo</label>
+            <input formControlName="nome"
+              class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition"
+              placeholder="Digite seu nome"/>
+            <div *ngIf="pedidoForm.get('informacoesCliente.nome')?.invalid && pedidoForm.get('informacoesCliente.nome')?.touched"
+              class="mt-1 text-sm text-red-600 flex items-center gap-1">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+              </svg>
+              Nome é obrigatório.
+            </div>
+          </div>
+
+          <div class="space-y-2">
+            <label class="block text-sm font-medium text-gray-700">Telefone</label>
+            <input formControlName="telefone"
+              class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition"
+              placeholder="(00) 00000-0000"/>
+            <div *ngIf="pedidoForm.get('informacoesCliente.telefone')?.invalid && pedidoForm.get('informacoesCliente.telefone')?.touched"
+              class="mt-1 text-sm text-red-600 flex items-center gap-1">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+              </svg>
+              Telefone é obrigatório (mínimo 8 dígitos).
+            </div>
+          </div>
+
+          <div class="space-y-2">
+            <label class="block text-sm font-medium text-gray-700">Endereço Completo</label>
+            <input formControlName="endereco"
+              class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition"
+              placeholder="Rua, número, bairro"/>
+            <div *ngIf="pedidoForm.get('informacoesCliente.endereco')?.invalid && pedidoForm.get('informacoesCliente.endereco')?.touched"
+              class="mt-1 text-sm text-red-600 flex items-center gap-1">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+              </svg>
+              Endereço é obrigatório.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Seção de Itens -->
+      <div class="space-y-4">
+        <div class="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+          <h2 class="text-lg font-semibold text-gray-800">Itens do Pedido</h2>
+          <div class="flex gap-3">
+            <button type="button" (click)="adicionaDivsLanches()"
+              class="flex items-center gap-2 px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-md transition-colors shadow">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" />
+              </svg>
+              Adicionar Lanche
+            </button>
+            <button type="button" (click)="adicionaDivsBebidas()"
+              class="flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md transition-colors shadow">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" />
+              </svg>
+              Adicionar Bebida
+            </button>
+          </div>
+        </div>
+
+        <!-- Lanches -->
+        <div *ngIf="lanchesFormArray.controls.length > 0" class="space-y-4">
+          <h3 class="text-md font-medium text-gray-700 flex items-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-emerald-600" viewBox="0 0 20 20" fill="currentColor">
+              <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
+            </svg>
+            Lanches
+          </h3>
+          
+          <div formArrayName="itemLancheModel" class="space-y-4">
+            <div *ngFor="let lanche of lanchesFormArray.controls; let i = index" [formGroupName]="i"
+              class="p-4 bg-white border border-gray-200 rounded-lg hover:shadow-md transition-shadow">
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="space-y-2">
+                  <label class="block text-sm font-medium text-gray-700">Lanche</label>
+                  <select formControlName="id_lanche"
+                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition">
+                    <option value="" disabled selected>Selecione o lanche</option>
+                    <option *ngFor="let row of lanchesAtivos" [value]="row.id">
+                      {{ row.descricao }}
+                    </option>
+                  </select>
+                </div>
+
+                <div class="space-y-2">
+                  <label class="block text-sm font-medium text-gray-700">Quantidade</label>
+                  <input type="number" formControlName="quantidade_pedido" min="1"
+                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition" />
+                </div>
+
+                <div class="flex items-end">
+                  <button type="button" (click)="removeDivsLanches(i)"
+                    class="flex items-center gap-1 px-3 py-2 text-red-600 hover:text-red-800 transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                      <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd" />
+                    </svg>
+                    Remover
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bebidas -->
+        <div *ngIf="bebidasFormArray.controls.length > 0" class="space-y-4">
+          <h3 class="text-md font-medium text-gray-700 flex items-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-600" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M7 2a1 1 0 00-.707 1.707L7 4.414v3.758a1 1 0 01-.293.707l-4 4C.817 14.769 2.156 18 4.828 18h10.343c2.673 0 4.012-3.231 2.122-5.121l-4-4A1 1 0 0113 8.172V4.414l.707-.707A1 1 0 0013 2H7zm2 6.172V4h2v4.172a3 3 0 00.879 2.12l1.027 1.028a4 4 0 00-2.171.102l-.47.156a4 4 0 01-2.53 0l-.563-.187a1.993 1.993 0 00-.114-.035l1.063-1.063A3 3 0 009 8.172z" clip-rule="evenodd" />
+            </svg>
+            Bebidas
+          </h3>
+          
+          <div formArrayName="itemBebidaModel" class="space-y-4">
+            <div *ngFor="let bebida of bebidasFormArray.controls; let i = index" [formGroupName]="i"
+              class="p-4 bg-white border border-gray-200 rounded-lg hover:shadow-md transition-shadow">
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="space-y-2">
+                  <label class="block text-sm font-medium text-gray-700">Bebida</label>
+                  <select formControlName="id_bebida"
+                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition">
+                    <option value="" disabled selected>Selecione a bebida</option>
+                    <option *ngFor="let row of bebidasAtivas" [value]="row.id">
+                      {{ row.descricao }}
+                    </option>
+                  </select>
+                </div>
+
+                <div class="space-y-2">
+                  <label class="block text-sm font-medium text-gray-700">Quantidade</label>
+                  <input type="number" formControlName="quantidade_pedido" min="1"
+                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" />
+                </div>
+
+                <div class="flex items-end">
+                  <button type="button" (click)="removeDivsBebidas(i)"
+                    class="flex items-center gap-1 px-3 py-2 text-red-600 hover:text-red-800 transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                      <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd" />
+                    </svg>
+                    Remover
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Botões de Ação -->
+      <div class="flex justify-end gap-3 pt-4 border-t border-gray-200">
+        <button type="button" (click)="handleVerLista()"
+          class="px-4 py-2 border border-gray-300 rounded-md hover:bg-gray-100 transition-colors">
+          Cancelar
+        </button>
+        <button type="submit" [disabled]="pedidoForm.invalid"
+          class="px-6 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-md transition-colors shadow">
+          Finalizar Pedido
+        </button>
+      </div>
+    </form>
+
+    <!-- Lista de Pedidos -->
+    <div class="divide-y divide-gray-100 mt-8">
+      <div class="hidden md:grid grid-cols-12 gap-4 px-6 py-3 bg-gray-50 text-xs font-medium text-gray-500 uppercase tracking-wider">
+        <div class="col-span-1">ID</div>
+        <div class="col-span-2">Data</div>
+        <div class="col-span-3">Cliente</div>
+        <div class="col-span-2">Lanches</div>
+        <div class="col-span-2">Bebidas</div>
+        <div class="col-span-2">Ações</div>
+      </div>
+
+      <ul>
+        <li *ngFor="let pedido of pedidosFeitos" class="px-6 py-4 hover:bg-gray-50 transition-colors">
+          <div class="grid grid-cols-2 md:grid-cols-12 gap-4 items-center">
+            <!-- ID -->
+            <div class="md:col-span-1">
+              <div class="md:hidden text-xs text-gray-500">ID</div>
+              <div class="font-medium">{{ pedido.id }}</div>
+            </div>
+
+            <!-- Data -->
+            <div class="md:col-span-2">
+              <div class="md:hidden text-xs text-gray-500">Data</div>
+              <div>{{ pedido.dataRegistro | date: 'short' }}</div>
+            </div>
+
+            <!-- Cliente -->
+            <div class="md:col-span-3">
+              <div class="md:hidden text-xs text-gray-500">Cliente</div>
+              <div *ngFor="let cliente of pedido.informacoesCliente" class="space-y-1">
+                <div><span class="font-medium">{{ cliente.nome }}</span></div>
+                <div class="text-sm text-gray-500">{{ cliente.telefone }}</div>
+              </div>
+            </div>
+
+            <!-- Lanches -->
+            <div class="md:col-span-2">
+              <div class="md:hidden text-xs text-gray-500">Lanches</div>
+              <div *ngFor="let lanche of pedido.itemLancheModel" class="space-y-1">
+                <div class="text-sm">ID: {{ lanche.id_lanche }}</div>
+                <div class="text-sm text-gray-500">Qtd: {{ lanche.quantidade_pedido }}</div>
+              </div>
+            </div>
+
+            <!-- Bebidas -->
+            <div class="md:col-span-2">
+              <div class="md:hidden text-xs text-gray-500">Bebidas</div>
+              <div *ngFor="let bebida of pedido.itemBebidaModel" class="space-y-1">
+                <div class="text-sm">ID: {{ bebida.id_bebida }}</div>
+                <div class="text-sm text-gray-500">Qtd: {{ bebida.quantidade_pedido }}</div>
+              </div>
+            </div>
+
+            <!-- Ações -->
+            <div class="md:col-span-2 flex gap-2">              
+              <button class="text-gray-400 hover:text-red-600 p-1" >
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd" />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

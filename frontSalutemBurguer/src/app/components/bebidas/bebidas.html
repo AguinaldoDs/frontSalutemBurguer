@@ -1,0 +1,198 @@
+<div class="h-full bg-gray-50">
+    <main class="container mx-auto p-4 lg:p-6">
+        <div class="bg-white rounded-lg shadow-sm overflow-hidden">
+            <!-- Header -->
+            <div
+                class="p-6 border-b border-gray-100 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                <div>
+                    <h1 class="text-xl font-semibold text-gray-800">Bebidas</h1>
+                    <p class="text-gray-500 text-sm">Gerencie as bebidas disponíveis no cardápio</p>
+                </div>
+
+                <div class="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
+                    <input
+                    type="text"
+                    [(ngModel)]="termoBuscaCodigo"
+                    class="px-4 py-2 border-0 ring-0 focus:ring-0 focus:outline-none focus:border-transparent shadow-sm rounded-lg"
+                    placeholder="Buscar codigo das bebidas..." />
+
+                    <input
+                    type="text"
+                    [(ngModel)]="termoBusca"
+                    class="px-4 py-2 border-0 ring-0 focus:ring-0 focus:outline-none focus:border-transparent shadow-sm rounded-lg"
+                    placeholder="Buscar bebidas..." />
+
+
+                    <button (click)="toggleForm()"
+                        class="cursor-pointer px-4 py-2 bg-emerald-600 text-white rounded-md hover:bg-emerald-700 transition-colors flex items-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd"
+                                d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
+                                clip-rule="evenodd" />
+                        </svg>
+                        Nova Bebida
+                    </button>
+                </div>
+            </div>
+
+            <!-- Edição -->
+            <div *ngIf="editandoBebida" class="p-6 bg-gray-100">
+                <h2 class="text-lg font-semibold text-gray-800 mb-4">Editar Bebida</h2>
+
+                <form (submit)="salvarEdicao()" class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="md:col-span-2">
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Descrição</label>
+                        <input type="text" [(ngModel)]="editandoBebida.descricao" name="editDesc"
+                            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-emerald-500 focus:border-emerald-500"
+                            required />
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Preço Unitário</label>
+                        <input type="number" [(ngModel)]="editandoBebida.preco_uni" name="editPreco"
+                            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-emerald-500 focus:border-emerald-500"
+                            required />
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Zero Açúcar</label>
+                        <select [(ngModel)]="editandoBebida.zero_acucar" name="editZero"
+                            class="w-full px-3 py-2 border border-gray-300 rounded-md">
+                            <option [value]="true">Sim</option>
+                            <option [value]="false">Não</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Status</label>
+                        <select [(ngModel)]="editandoBebida.ativo" name="editAtivo"
+                            class="w-full px-3 py-2 border border-gray-300 rounded-md">
+                            <option [value]="true">Ativo</option>
+                            <option [value]="false">Inativo</option>
+                        </select>
+                    </div>
+
+                    <div class="md:col-span-3 flex justify-end gap-2">
+                        <button type="submit"
+                            class="px-4 py-2 bg-emerald-600 text-white rounded-md hover:bg-emerald-700 transition-colors">
+                            Salvar Alterações
+                        </button>
+                        <button type="button" (click)="editandoBebida = null"
+                            class="px-4 py-2 border border-gray-300 rounded-md hover:bg-gray-100 transition-colors">
+                            Cancelar
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Cadastro -->
+            <div *ngIf="showForm" class="p-6 bg-gray-50 border-b border-gray-100">
+                <form (submit)="cadastrarBebida($event)" class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="md:col-span-2">
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Descrição</label>
+                        <input type="text" [(ngModel)]="novaDescricao" name="descricao"
+                            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-emerald-500 focus:border-emerald-500"
+                            placeholder="Ex: Coca-Cola Zero, Suco Natural..." required />
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Preço Unitário</label>
+                        <input type="number" [(ngModel)]="novoPreco" name="precoUni"
+                            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-emerald-500 focus:border-emerald-500"
+                            placeholder="0.00" min="0" step="0.01" required />
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Zero Açúcar</label>
+                        <select [(ngModel)]="novoZeroAcucar" name="zeroAcucar"
+                            class="w-full px-3 py-2 border border-gray-300 rounded-md">
+                            <option [value]="true">Sim</option>
+                            <option [value]="false">Não</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Status</label>
+                        <select [(ngModel)]="novoStatus" name="ativo"
+                            class="w-full px-3 py-2 border border-gray-300 rounded-md">
+                            <option [value]="true">Ativo</option>
+                            <option [value]="false">Inativo</option>
+                        </select>
+                    </div>
+
+                    <div class="md:col-span-3 flex justify-end gap-2">
+                        <button type="submit"
+                            class="px-4 py-2 bg-emerald-600 text-white rounded-md hover:bg-emerald-700 transition-colors">
+                            Salvar
+                        </button>
+                        <button type="button" (click)="toggleForm()"
+                            class="px-4 py-2 border border-gray-300 rounded-md hover:bg-gray-100 transition-colors">
+                            Cancelar
+                        </button>
+                    </div>
+                </form>
+
+                <div *ngIf="mensagem" class="mt-3 text-sm" [ngClass]="{
+          'text-green-600': mensagem.includes('sucesso'),
+          'text-red-600': !mensagem.includes('sucesso')
+        }">
+                    {{ mensagem }}
+                </div>
+            </div>
+
+            <!-- Lista -->
+            <div class="divide-y divide-gray-100">
+                <div
+                    class="hidden md:grid grid-cols-12 gap-4 px-6 py-3 bg-gray-50 text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <div class="col-span-1">ID</div>
+                    <div class="col-span-4">Descrição</div>
+                    <div class="col-span-2">Preço</div>
+                    <div class="col-span-2">Zero Açúcar</div>
+                    <div class="col-span-2">Status</div>
+                    <div class="col-span-1">Ações</div>
+                </div>
+
+                <ul>
+                    <li *ngFor="let item of bebidas | filtroBebidas: termoBusca | filtroBebidasCodigo: termoBuscaCodigo " class="px-6 py-4 hover:bg-gray-50 transition-colors">
+                        <div class="grid grid-cols-2 md:grid-cols-12 gap-4 items-center">
+                            <div class="md:col-span-1">{{ item.id }}</div>
+                            <div class="md:col-span-4 font-medium">{{ item.descricao }}</div>
+                            <div class="md:col-span-2">R$ {{ item.preco_uni | number: '1.2-2' }}</div>
+                            <div class="md:col-span-2">
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium"
+                                    [ngClass]="item.zero_acucar ? 'bg-blue-100 text-blue-800' : 'bg-gray-100 text-gray-800'">
+                                    {{ item.zero_acucar ? 'Sim' : 'Não' }}
+                                </span>
+                            </div>
+                            <div class="md:col-span-2">
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium"
+                                    [ngClass]="item.ativo ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'">
+                                    {{ item.ativo ? 'Ativo' : 'Inativo' }}
+                                </span>
+                            </div>
+                            <div class="md:col-span-1 flex justify-end gap-2">
+                                <button (click)="iniciarEdicao(item)" class="text-gray-400 hover:text-emerald-600 p-1">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20"
+                                        fill="currentColor">
+                                        <path
+                                            d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
+                                    </svg>
+                                </button>
+
+                                <button (click)="deletarBebida(item.id)"
+                                    class="text-gray-400 hover:text-red-600 p-1">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20"
+                                        fill="currentColor">
+                                        <path fill-rule="evenodd"
+                                            d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
+                                            clip-rule="evenodd" />
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </main>
+</div>
