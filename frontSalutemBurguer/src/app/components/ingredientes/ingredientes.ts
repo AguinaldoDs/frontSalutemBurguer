@@ -2,60 +2,64 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { bootstrapTrash, bootstrapPencil, bootstrapCheckLg } from '@ng-icons/bootstrap-icons';
 
 // pipe
-import { FiltroIngredientePipe } from '../../filtroIngrediente.pipe';
-import { FiltroIngredientePipeCodigo } from '../../filtroIngredienteCodigo.pipe';
+import { FiltroBuscaPipe } from '../../filtroBuscaDescricao.pipe';
+import { FiltroBuscaPipeCodigo } from '../../filtroBuscaCodigo.pipe';
 
 //model
 import { IngredienteInterface } from '../../model/ingredientesModel';
 
 
+/**
+ * Componente responsável por gerenciar as operações CRUD (Create, Read, Update, Delete) de ingredientes.
+ * Permite listar, cadastrar, editar e excluir ingredientes.
+ */
 @Component({
   selector: 'app-ingredientes',
   standalone: true,
-  imports: [CommonModule, FormsModule, FiltroIngredientePipe, FiltroIngredientePipeCodigo],
+  imports: [CommonModule, FormsModule, FiltroBuscaPipe, FiltroBuscaPipeCodigo],
   templateUrl: './ingredientes.html',
   styleUrls: ['./ingredientes.css'],
-  // viewProviders: [provideIcons({ bootstrapTrash, bootstrapPencil, bootstrapCheckLg })]
 })
 export class Ingredientes implements OnInit {
 
-  // ================== PROPRIEDADES ==================
-
+  // Armazena a lista de ingredientes carregada do backend
   ingredientes: IngredienteInterface[] = [];
 
-  // Campos para novo ingrediente
+  // Propriedades para o formulário de cadastro
   novaDescricao: string = '';
   novoPreco: number = 0;
   novoAdicional: boolean = false;
   novoStatus: boolean = true;
 
-  // Estados da UI
+  // Propriedades para filtros e feedback da interface
   termoBusca: string = '';
-  termoBuscaCodigo: string  ='';
+  termoBuscaCodigo: string  ='';
   mensagem: string | null = null;
   carregando: boolean = false;
   showForm: boolean = false;
 
-  // Controle de edição
+  // Propriedades para o formulário de edição
   editandoId: number | null = null;
   editandoIngrediente: IngredienteInterface | null = null;
 
   constructor(private http: HttpClient) {}
 
-  // ================== CICLO DE VIDA ==================
+  /**
+   * Hook de ciclo de vida do Angular, chamado após a inicialização do componente.
+   * Inicia o carregamento dos ingredientes.
+   */
   ngOnInit(): void {
     this.carregarIngredientes();
   }
 
-  // ================== MÉTODOS ==================
-
-  // Carrega todos os ingredientes da API
+  /**
+   * Realiza a requisição para buscar todos os ingredientes no backend.
+   * Gerencia o estado de carregamento e exibe mensagens de erro, se houver.
+   */
   carregarIngredientes(): void {
     this.carregando = true;
-
     this.http.get<IngredienteInterface[]>('http://localhost:8080/api/findAllIngredientes')
       .subscribe({
         next: (data) => {
@@ -63,14 +67,16 @@ export class Ingredientes implements OnInit {
           this.carregando = false;
         },
         error: (err) => {
-          console.error('Erro ao carregar ingredientes', err);
           this.mensagem = 'Não foi possível carregar os ingredientes';
           this.carregando = false;
         }
       });
   }
 
-  // Cadastra um novo ingrediente
+  /**
+   * Envia os dados de um novo ingrediente para o backend via POST.
+   * @param event O evento do formulário, usado para prevenir o recarregamento da página.
+   */
   cadastrarIngrediente(event: Event): void {
     event.preventDefault();
     this.mensagem = null;
@@ -78,7 +84,7 @@ export class Ingredientes implements OnInit {
     const descricaoLimpa = this.novaDescricao.trim();
 
     if (!descricaoLimpa) {
-      this.mensagem = '<div class="text-red-600">A descrição não pode estar vazia!</div>';
+      this.mensagem = 'A descrição não pode estar vazia!';
       return;
     }
 
@@ -94,25 +100,30 @@ export class Ingredientes implements OnInit {
         next: () => {
           this.resetarFormulario();
           this.carregarIngredientes();
-          this.mensagem = '<div class="text-green-600">Ingrediente salvo com sucesso!</div>';
+          this.mensagem = 'Ingrediente salvo com sucesso!';
         },
         error: (err) => {
-          console.error('Erro ao salvar ingrediente', err);
-          this.mensagem = '<div class="text-red-600">Ocorreu um erro ao salvar o ingrediente</div>';
+          this.mensagem = 'Ocorreu um erro ao salvar o ingrediente';
         }
       });
   }
 
-  // Inicia a edição de um ingrediente
+  /**
+   * Ativa o modo de edição, copiando os dados do item selecionado para o formulário.
+   * @param item O ingrediente a ser editado.
+   */
   iniciarEdicao(item: IngredienteInterface): void {
-    this.editandoIngrediente = { ...item }; // Cópia para edição isolada
+    this.editandoIngrediente = { ...item };
     this.showForm = false;
   }
 
-  // Salva as alterações do ingrediente em edição
+  /**
+   * Envia os dados atualizados do ingrediente para o backend via PUT.
+   */
   salvarEdicao(): void {
     if (!this.editandoIngrediente) return;
 
+    // Constrói o objeto com os dados necessários para a atualização
     const dadosAtualizados = {
       id: this.editandoIngrediente.id,
       descricao: this.editandoIngrediente.descricao,
@@ -129,13 +140,16 @@ export class Ingredientes implements OnInit {
           this.carregarIngredientes();
         },
         error: (err) => {
-          console.error('Erro ao atualizar ingrediente', err);
           this.mensagem = 'Erro ao atualizar o ingrediente';
         }
       });
   }
 
-  // Deleta um ingrediente
+  /**
+   * Exclui um ingrediente do backend com base no seu ID.
+   * Requer confirmação do usuário.
+   * @param id O ID do ingrediente a ser excluído.
+   */
   deletarIngrediente(id: number): void {
     if (!confirm('Tem certeza que deseja excluir este ingrediente?')) return;
 
@@ -145,20 +159,23 @@ export class Ingredientes implements OnInit {
           this.carregarIngredientes();
         },
         error: (err) => {
-          console.error('Erro ao deletar ingrediente', err);
           this.mensagem = 'Não foi possível excluir o ingrediente';
         }
       });
   }
 
-  // Alterna exibição do formulário de criação
+  /**
+   * Alterna a visibilidade do formulário de cadastro.
+   */
   toggleForm(): void {
     this.showForm = !this.showForm;
     this.editandoId = null;
     if (!this.showForm) this.resetarFormulario();
   }
 
-  // Limpa campos do formulário
+  /**
+   * Limpa os campos do formulário de cadastro.
+   */
   private resetarFormulario(): void {
     this.novaDescricao = '';
     this.novoPreco = 0;

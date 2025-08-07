@@ -8,6 +8,16 @@
         <p class="text-gray-500 text-sm">Registre e acompanhe os pedidos dos clientes</p>
       </div>
 
+      <input type="text"
+                    [(ngModel)]="termoBuscaCodigo"
+                    class="px-4 py-2 border-0 ring-0 focus:ring-0 focus:outline-none focus:border-transparent shadow-sm rounded-lg"
+                    placeholder="Buscar codigo pedidos..." />
+
+                <input type="text"
+                    [(ngModel)]="termoBusca"
+                    class="px-4 py-2 border-0 ring-0 focus:ring-0 focus:outline-none focus:border-transparent shadow-sm rounded-lg"
+                    placeholder="Buscar pedido..." />
+
       <!-- Botão Criar Pedido -->
       <button type="button" (click)="handleVerLista()"
         class="flex items-center gap-2 px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-md transition-colors shadow">
@@ -16,10 +26,11 @@
         </svg>
         Criar Pedido
       </button>
+
     </div>
 
     <!-- Formulário de Pedido -->
-    <form [formGroup]="pedidoForm" (ngSubmit)="savePedido()" *ngIf="verLista" class="mt-8 space-y-6">
+    <form [formGroup]="pedidoForm" (ngSubmit)="savePedido()" class="mt-8 space-y-6">
       <!-- Informações do Cliente -->
       <div formGroupName="informacoesCliente" class="space-y-4 p-6 bg-gray-50 rounded-lg">
         <h2 class="text-lg font-semibold text-gray-800">Informações do Cliente</h2>
@@ -28,7 +39,7 @@
           <div class="space-y-2">
             <label class="block text-sm font-medium text-gray-700">Nome Completo</label>
             <input formControlName="nome"
-              class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition"
+              class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2  transition"
               placeholder="Digite seu nome"/>
             <div *ngIf="pedidoForm.get('informacoesCliente.nome')?.invalid && pedidoForm.get('informacoesCliente.nome')?.touched"
               class="mt-1 text-sm text-red-600 flex items-center gap-1">
@@ -42,7 +53,7 @@
           <div class="space-y-2">
             <label class="block text-sm font-medium text-gray-700">Telefone</label>
             <input formControlName="telefone"
-              class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition"
+              class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2  transition"
               placeholder="(00) 00000-0000"/>
             <div *ngIf="pedidoForm.get('informacoesCliente.telefone')?.invalid && pedidoForm.get('informacoesCliente.telefone')?.touched"
               class="mt-1 text-sm text-red-600 flex items-center gap-1">
@@ -56,7 +67,7 @@
           <div class="space-y-2">
             <label class="block text-sm font-medium text-gray-700">Endereço Completo</label>
             <input formControlName="endereco"
-              class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition"
+              class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2  transition"
               placeholder="Rua, número, bairro"/>
             <div *ngIf="pedidoForm.get('informacoesCliente.endereco')?.invalid && pedidoForm.get('informacoesCliente.endereco')?.touched"
               class="mt-1 text-sm text-red-600 flex items-center gap-1">
@@ -94,9 +105,6 @@
         <!-- Lanches -->
         <div *ngIf="lanchesFormArray.controls.length > 0" class="space-y-4">
           <h3 class="text-md font-medium text-gray-700 flex items-center gap-2">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-emerald-600" viewBox="0 0 20 20" fill="currentColor">
-              <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
-            </svg>
             Lanches
           </h3>
           
@@ -107,7 +115,7 @@
                 <div class="space-y-2">
                   <label class="block text-sm font-medium text-gray-700">Lanche</label>
                   <select formControlName="id_lanche"
-                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition">
+                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2  transition">
                     <option value="" disabled selected>Selecione o lanche</option>
                     <option *ngFor="let row of lanchesAtivos" [value]="row.id">
                       {{ row.descricao }}
@@ -118,7 +126,7 @@
                 <div class="space-y-2">
                   <label class="block text-sm font-medium text-gray-700">Quantidade</label>
                   <input type="number" formControlName="quantidade_pedido" min="1"
-                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition" />
+                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2  transition" />
                 </div>
 
                 <div class="flex items-end">
@@ -138,9 +146,6 @@
         <!-- Bebidas -->
         <div *ngIf="bebidasFormArray.controls.length > 0" class="space-y-4">
           <h3 class="text-md font-medium text-gray-700 flex items-center gap-2">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-600" viewBox="0 0 20 20" fill="currentColor">
-              <path fill-rule="evenodd" d="M7 2a1 1 0 00-.707 1.707L7 4.414v3.758a1 1 0 01-.293.707l-4 4C.817 14.769 2.156 18 4.828 18h10.343c2.673 0 4.012-3.231 2.122-5.121l-4-4A1 1 0 0113 8.172V4.414l.707-.707A1 1 0 0013 2H7zm2 6.172V4h2v4.172a3 3 0 00.879 2.12l1.027 1.028a4 4 0 00-2.171.102l-.47.156a4 4 0 01-2.53 0l-.563-.187a1.993 1.993 0 00-.114-.035l1.063-1.063A3 3 0 009 8.172z" clip-rule="evenodd" />
-            </svg>
             Bebidas
           </h3>
           
@@ -205,7 +210,7 @@
       </div>
 
       <ul>
-        <li *ngFor="let pedido of pedidosFeitos" class="px-6 py-4 hover:bg-gray-50 transition-colors">
+        <li *ngFor="let pedido of pedidosFeitos  | filtroPipe:termoBusca | filtroPipeCodigo:termoBuscaCodigo" class="px-6 py-4 hover:bg-gray-50 transition-colors">
           <div class="grid grid-cols-2 md:grid-cols-12 gap-4 items-center">
             <!-- ID -->
             <div class="md:col-span-1">
@@ -216,7 +221,7 @@
             <!-- Data -->
             <div class="md:col-span-2">
               <div class="md:hidden text-xs text-gray-500">Data</div>
-              <div>{{ pedido.dataRegistro | date: 'short' }}</div>
+              <div>{{ pedido.dataRegistro | date: 'dd-MM-yyyy HH:mm' }}</div>
             </div>
 
             <!-- Cliente -->
@@ -232,8 +237,7 @@
             <div class="md:col-span-2">
               <div class="md:hidden text-xs text-gray-500">Lanches</div>
               <div *ngFor="let lanche of pedido.itemLancheModel" class="space-y-1">
-                <div class="text-sm">ID: {{ lanche.id_lanche }}</div>
-                <div class="text-sm text-gray-500">Qtd: {{ lanche.quantidade_pedido }}</div>
+                <div class="text-sm text-gray-500"> {{ getNomeLanche(lanche.id_lanche) }} - Qtd: {{ lanche.quantidade_pedido }}</div>
               </div>
             </div>
 
@@ -241,8 +245,7 @@
             <div class="md:col-span-2">
               <div class="md:hidden text-xs text-gray-500">Bebidas</div>
               <div *ngFor="let bebida of pedido.itemBebidaModel" class="space-y-1">
-                <div class="text-sm">ID: {{ bebida.id_bebida }}</div>
-                <div class="text-sm text-gray-500">Qtd: {{ bebida.quantidade_pedido }}</div>
+                <div class="text-sm text-gray-500"> {{ getNomeBebida(bebida.id_bebida) }} - Qtd: {{ bebida.quantidade_pedido }}</div>
               </div>
             </div>
 
