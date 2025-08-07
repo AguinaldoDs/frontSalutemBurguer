@@ -3,5 +3,5 @@ export interface InformacaoClientePedidoInterface {
   nome: string;
   endereco: string;
   telefone: string;
+  observacao: string
 }
-

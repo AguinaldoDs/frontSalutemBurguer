@@ -20,7 +20,6 @@ import { InformacaoClientePedidoInterface } from '../../model/pedidoModel';
 interface PedidoInterface {
   id?: number;
   dataRegistro?: string;
-  // AQUI está a correção da interface. `informacoesCliente` agora é um objeto único.
   informacoesCliente: InformacaoClientePedidoInterface; 
   itemLancheModel: PedidoItemLancheInterface[];
   itemBebidaModel: PedidoItemBebidasInterface[];
@@ -53,7 +52,8 @@ export class Pedido implements OnInit {
     informacoesCliente: this.fb.group({
       nome: ['', Validators.required],
       endereco: ['', Validators.required],
-      telefone: ['', [Validators.required, Validators.minLength(8)]]
+      telefone: ['', [Validators.required, Validators.minLength(8)]],
+      observacao: ['', ]
     }),
     // FormArray para a lista dinâmica de lanches
     itemLancheModel: this.fb.array([]),
@@ -154,7 +154,7 @@ export class Pedido implements OnInit {
   removeDivsBebidas(index: number): void {
     this.bebidasFormArray.removeAt(index);
   }
-  
+
   // Salva o pedido no backend
   savePedido(): void {
     // VERIFICA se o formulário é válido antes de enviar

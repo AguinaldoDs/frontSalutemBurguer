@@ -8,21 +8,21 @@
         <p class="text-gray-500 text-sm">Registre e acompanhe os pedidos dos clientes</p>
       </div>
 
-      <input type="text"
-                    [(ngModel)]="termoBuscaCodigo"
-                    class="px-4 py-2 border-0 ring-0 focus:ring-0 focus:outline-none focus:border-transparent shadow-sm rounded-lg"
-                    placeholder="Buscar codigo pedidos..." />
+      <input type="text" [(ngModel)]="termoBuscaCodigo"
+        class="px-4 py-2 border-0 ring-0 focus:ring-0 focus:outline-none focus:border-transparent shadow-sm rounded-lg"
+        placeholder="Buscar codigo pedidos..." />
 
-                <input type="text"
-                    [(ngModel)]="termoBusca"
-                    class="px-4 py-2 border-0 ring-0 focus:ring-0 focus:outline-none focus:border-transparent shadow-sm rounded-lg"
-                    placeholder="Buscar pedido..." />
+      <input type="text" [(ngModel)]="termoBusca"
+        class="px-4 py-2 border-0 ring-0 focus:ring-0 focus:outline-none focus:border-transparent shadow-sm rounded-lg"
+        placeholder="Buscar pedido..." />
 
       <!-- Botão Criar Pedido -->
       <button type="button" (click)="handleVerLista()"
         class="flex items-center gap-2 px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-md transition-colors shadow">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-          <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" />
+          <path fill-rule="evenodd"
+            d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
+            clip-rule="evenodd" />
         </svg>
         Criar Pedido
       </button>
@@ -34,17 +34,20 @@
       <!-- Informações do Cliente -->
       <div formGroupName="informacoesCliente" class="space-y-4 p-6 bg-gray-50 rounded-lg">
         <h2 class="text-lg font-semibold text-gray-800">Informações do Cliente</h2>
-        
+
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div class="space-y-2">
             <label class="block text-sm font-medium text-gray-700">Nome Completo</label>
             <input formControlName="nome"
               class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2  transition"
-              placeholder="Digite seu nome"/>
-            <div *ngIf="pedidoForm.get('informacoesCliente.nome')?.invalid && pedidoForm.get('informacoesCliente.nome')?.touched"
+              placeholder="Digite seu nome" />
+            <div
+              *ngIf="pedidoForm.get('informacoesCliente.nome')?.invalid && pedidoForm.get('informacoesCliente.nome')?.touched"
               class="mt-1 text-sm text-red-600 flex items-center gap-1">
               <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
-                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+                <path fill-rule="evenodd"
+                  d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+                  clip-rule="evenodd" />
               </svg>
               Nome é obrigatório.
             </div>
@@ -54,11 +57,14 @@
             <label class="block text-sm font-medium text-gray-700">Telefone</label>
             <input formControlName="telefone"
               class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2  transition"
-              placeholder="(00) 00000-0000"/>
-            <div *ngIf="pedidoForm.get('informacoesCliente.telefone')?.invalid && pedidoForm.get('informacoesCliente.telefone')?.touched"
+              placeholder="(00) 00000-0000" />
+            <div
+              *ngIf="pedidoForm.get('informacoesCliente.telefone')?.invalid && pedidoForm.get('informacoesCliente.telefone')?.touched"
               class="mt-1 text-sm text-red-600 flex items-center gap-1">
               <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
-                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+                <path fill-rule="evenodd"
+                  d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+                  clip-rule="evenodd" />
               </svg>
               Telefone é obrigatório (mínimo 8 dígitos).
             </div>
@@ -68,14 +74,24 @@
             <label class="block text-sm font-medium text-gray-700">Endereço Completo</label>
             <input formControlName="endereco"
               class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2  transition"
-              placeholder="Rua, número, bairro"/>
-            <div *ngIf="pedidoForm.get('informacoesCliente.endereco')?.invalid && pedidoForm.get('informacoesCliente.endereco')?.touched"
+              placeholder="Rua, número, bairro" />
+            <div
+              *ngIf="pedidoForm.get('informacoesCliente.endereco')?.invalid && pedidoForm.get('informacoesCliente.endereco')?.touched"
               class="mt-1 text-sm text-red-600 flex items-center gap-1">
               <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
-                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+                <path fill-rule="evenodd"
+                  d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+                  clip-rule="evenodd" />
               </svg>
               Endereço é obrigatório.
             </div>
+          </div>
+          <div class="space-y-2 w-full">
+            <label class="block text-sm font-medium text-gray-700">Observações</label>
+            <input formControlName="observacao"
+              class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2  transition"
+              placeholder="Ex: Sem salada" />
+
           </div>
         </div>
       </div>
@@ -88,14 +104,18 @@
             <button type="button" (click)="adicionaDivsLanches()"
               class="flex items-center gap-2 px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-md transition-colors shadow">
               <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" />
+                <path fill-rule="evenodd"
+                  d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
+                  clip-rule="evenodd" />
               </svg>
               Adicionar Lanche
             </button>
             <button type="button" (click)="adicionaDivsBebidas()"
               class="flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md transition-colors shadow">
               <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" />
+                <path fill-rule="evenodd"
+                  d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
+                  clip-rule="evenodd" />
               </svg>
               Adicionar Bebida
             </button>
@@ -107,7 +127,7 @@
           <h3 class="text-md font-medium text-gray-700 flex items-center gap-2">
             Lanches
           </h3>
-          
+
           <div formArrayName="itemLancheModel" class="space-y-4">
             <div *ngFor="let lanche of lanchesFormArray.controls; let i = index" [formGroupName]="i"
               class="p-4 bg-white border border-gray-200 rounded-lg hover:shadow-md transition-shadow">
@@ -133,7 +153,9 @@
                   <button type="button" (click)="removeDivsLanches(i)"
                     class="flex items-center gap-1 px-3 py-2 text-red-600 hover:text-red-800 transition-colors">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                      <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd" />
+                      <path fill-rule="evenodd"
+                        d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
+                        clip-rule="evenodd" />
                     </svg>
                     Remover
                   </button>
@@ -148,7 +170,7 @@
           <h3 class="text-md font-medium text-gray-700 flex items-center gap-2">
             Bebidas
           </h3>
-          
+
           <div formArrayName="itemBebidaModel" class="space-y-4">
             <div *ngFor="let bebida of bebidasFormArray.controls; let i = index" [formGroupName]="i"
               class="p-4 bg-white border border-gray-200 rounded-lg hover:shadow-md transition-shadow">
@@ -174,7 +196,9 @@
                   <button type="button" (click)="removeDivsBebidas(i)"
                     class="flex items-center gap-1 px-3 py-2 text-red-600 hover:text-red-800 transition-colors">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                      <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd" />
+                      <path fill-rule="evenodd"
+                        d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
+                        clip-rule="evenodd" />
                     </svg>
                     Remover
                   </button>
@@ -200,7 +224,8 @@
 
     <!-- Lista de Pedidos -->
     <div class="divide-y divide-gray-100 mt-8">
-      <div class="hidden md:grid grid-cols-12 gap-4 px-6 py-3 bg-gray-50 text-xs font-medium text-gray-500 uppercase tracking-wider">
+      <div
+        class="hidden md:grid grid-cols-12 gap-4 px-6 py-3 bg-gray-50 text-xs font-medium text-gray-500 uppercase tracking-wider">
         <div class="col-span-1">ID</div>
         <div class="col-span-2">Data</div>
         <div class="col-span-3">Cliente</div>
@@ -210,7 +235,8 @@
       </div>
 
       <ul>
-        <li *ngFor="let pedido of pedidosFeitos  | filtroPipe:termoBusca | filtroPipeCodigo:termoBuscaCodigo" class="px-6 py-4 hover:bg-gray-50 transition-colors">
+        <li *ngFor="let pedido of pedidosFeitos  | filtroPipe:termoBusca | filtroPipeCodigo:termoBuscaCodigo"
+          class="px-6 py-4 hover:bg-gray-50 transition-colors">
           <div class="grid grid-cols-2 md:grid-cols-12 gap-4 items-center">
             <!-- ID -->
             <div class="md:col-span-1">
@@ -227,9 +253,11 @@
             <!-- Cliente -->
             <div class="md:col-span-3">
               <div class="md:hidden text-xs text-gray-500">Cliente</div>
-              <div *ngFor="let cliente of pedido.informacoesCliente" class="space-y-1">
-                <div><span class="font-medium">{{ cliente.nome }}</span></div>
-                <div class="text-sm text-gray-500">{{ cliente.telefone }}</div>
+              <div class="space-y-1">
+                <div><span class="font-medium">{{ pedido.informacoesCliente?.nome }}</span></div>
+                <div class="text-sm text-gray-500">{{ pedido.informacoesCliente?.telefone }}</div>
+                <p class="text-xs text-gray-600">Obs:</p>
+                <div class="text-sm text-gray-500">{{ pedido.informacoesCliente?.observacao }}</div>
               </div>
             </div>
 
@@ -237,7 +265,8 @@
             <div class="md:col-span-2">
               <div class="md:hidden text-xs text-gray-500">Lanches</div>
               <div *ngFor="let lanche of pedido.itemLancheModel" class="space-y-1">
-                <div class="text-sm text-gray-500"> {{ getNomeLanche(lanche.id_lanche) }} - Qtd: {{ lanche.quantidade_pedido }}</div>
+                <div class="text-sm text-gray-500"> {{ getNomeLanche(lanche.id_lanche) }} - Qtd: {{
+                  lanche.quantidade_pedido }}</div>
               </div>
             </div>
 
@@ -245,15 +274,18 @@
             <div class="md:col-span-2">
               <div class="md:hidden text-xs text-gray-500">Bebidas</div>
               <div *ngFor="let bebida of pedido.itemBebidaModel" class="space-y-1">
-                <div class="text-sm text-gray-500"> {{ getNomeBebida(bebida.id_bebida) }} - Qtd: {{ bebida.quantidade_pedido }}</div>
+                <div class="text-sm text-gray-500"> {{ getNomeBebida(bebida.id_bebida) }} - Qtd: {{
+                  bebida.quantidade_pedido }}</div>
               </div>
             </div>
 
             <!-- Ações -->
-            <div class="md:col-span-2 flex gap-2">              
-              <button class="text-gray-400 hover:text-red-600 p-1" >
+            <div class="md:col-span-2 flex gap-2">
+              <button class="text-gray-400 hover:text-red-600 p-1">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                  <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd" />
+                  <path fill-rule="evenodd"
+                    d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
+                    clip-rule="evenodd" />
                 </svg>
               </button>
             </div>
