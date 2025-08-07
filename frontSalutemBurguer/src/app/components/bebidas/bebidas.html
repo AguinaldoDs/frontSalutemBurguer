@@ -132,10 +132,7 @@
                     </div>
                 </form>
 
-                <div *ngIf="mensagem" class="mt-3 text-sm" [ngClass]="{
-          'text-green-600': mensagem.includes('sucesso'),
-          'text-red-600': !mensagem.includes('sucesso')
-        }">
+                <div *ngIf="mensagem" class="mt-3 text-sm" [ngClass]="{'text-green-600': mensagem.includes('sucesso'),'text-red-600': !mensagem.includes('sucesso')}">
                     {{ mensagem }}
                 </div>
             </div>
